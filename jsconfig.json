@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "paths": {
+      // 路径匹配
+      "@/*": ["src/*"]
+    }
+  },
+  "exclude": [
+    // 排除某些文件
+    "node_modules"
+  ],
+  "include": ["./src/**/*"] //自动引入Vue组件和普通Js模块
+}

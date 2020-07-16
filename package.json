@@ -6,8 +6,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
+    "stage": "cross-env NODE_ENV=dev vue-cli-service serve --mode staging",
+    "stageBuild": "vue-cli-service build --mode staging",
     "build": "vue-cli-service build",
-    "stage": "vue-cli-service build --mode staging",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
     "babel-eslint": "^10.0.3",
     "babel-plugin-import": "^1.13.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "cross-env": "^7.0.2",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.2.2",
