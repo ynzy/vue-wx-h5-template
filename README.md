@@ -18,7 +18,7 @@
 本示例 Node.js 12.14.1
 
 ### 项目结构
->mk-agent  -- UI主目录    
+>vue-h5-template  -- UI主目录    
 ├── public -- 静态资源   
 ├    ├── favicon.ico -- 图标   
 ├    └── index.html -- 首页   
