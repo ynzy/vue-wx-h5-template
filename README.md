@@ -7,7 +7,7 @@
 [查看 demo](https://solui.cn/vue-h5-template/#/) 建议手机端查看
 
 <p>
-  <img src="./static/demo.png" width="320" style="display:inline;">
+  <img src="./static/image/demo.png" width="320" style="display:inline;">
 </p>
 
 ### Node 版本要求
