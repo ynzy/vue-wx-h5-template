@@ -7,6 +7,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "stage": "cross-env NODE_ENV=dev vue-cli-service serve --mode staging",
+    "prod": "cross-env NODE_ENV=dev vue-cli-service serve --mode production",
     "stageBuild": "vue-cli-service build --mode staging",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -18,9 +19,12 @@
     "lodash": "^4.17.15",
     "regenerator-runtime": "^0.13.5",
     "vant": "^2.4.7",
+    "vconsole": "^3.3.4",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
-    "vuex": "^3.1.2"
+    "vue-wechat-title": "^2.0.7",
+    "vuex": "^3.1.2",
+    "weixin-js-sdk": "^1.6.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",

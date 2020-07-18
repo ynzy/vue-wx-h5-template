@@ -20,6 +20,11 @@
           <van-button v-if="userName == ''" type="warning" size="small" @click="doDispatch">快点我~</van-button>
         </div>
       </div>
+      <div class="box">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,8 +51,8 @@ export default {
       // 请求接口数据，仅作为展示，需要配置src->config下环境文件
       const params = { user: 'sunnie' }
       getUserInfo(params)
-        .then(() => { })
-        .catch(() => { })
+        .then(() => {})
+        .catch(() => {})
     },
     // Action 通过 store.dispatch 方法触发
     doDispatch() {
@@ -85,6 +90,7 @@ export default {
       .item {
         font-size: 14px;
         line-height: 34px;
+        color: $theme-color;
         a {
           text-decoration: underline;
         }
@@ -108,6 +114,12 @@ export default {
         }
       }
     }
+  }
+}
+.box {
+  .item {
+    height: 40px;
+    border: 1px solid #000;
   }
 }
 </style>

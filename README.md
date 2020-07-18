@@ -1,6 +1,6 @@
 # vue-h5-template
 
-基于 vue-cli4.0 + webpack 4 + vant ui + sass+ rem 适配方案+axios 封装，构建手机端模板脚手架
+基于 vue-cli4.0 + webpack 4 + vant ui + sass+ rem 适配方案+axios 封装 + jssdk配置 + vconsole移动端调试，构建手机端模板脚手架
 
 掘金: [vue-cli4 vant rem 移动端框架方案](https://juejin.im/post/5cfefc73f265da1bba58f9f7)
 
@@ -17,6 +17,50 @@
 
 本示例 Node.js 12.14.1
 
+### 项目结构
+>mk-agent  -- UI主目录    
+├── public -- 静态资源   
+├    ├── favicon.ico -- 图标   
+├    └── index.html -- 首页   
+├── src -- 源码目录    
+├    ├── api -- 后端交互的接口   
+├    ├── assets -- 静态资源目录
+├    ├── css
+├        ├── index.scss     -- 全局通用样式
+├        ├── mixin.scss     -- 全局mixin
+├        └── variables.scss -- 全局变量   
+├    ├── components -- 封装的组件    
+├    ├── config -- 环境配置    
+├    ├── const -- 放vue页面的配置常量   
+├    ├── filters -- 过滤器   
+├    ├── plugins -- 插件   
+├    └── route -- VUE路由   
+├         ├── index -- 路由入口    
+├         └── router.config.js -- 路由表    
+├    ├── store -- VUEX      
+├    └── util -- 工具包   
+├         ├── request.js -- axios封装   
+├         ├── vconsole.js -- 移动端调试插件
+├         ├── jsApiList.js -- 微信JS接口列表
+├         ├── wechatPlugin.js -- jssdk插件配置
+├         ├── storage.js -- 本地存储封装
+├         └── util -- 工具包   
+├    └── views -- 业务上的vue页面   
+├         ├── layouts  -- 路由布局页面(是否缓存页面)
+├         └── home -- 公众号
+├    ├── App.vue -- 根组件    
+├    └── main.js -- 入口js    
+├── .env.development -- 开发环境   
+├── .env.production -- 生产环境   
+├── .env.staging -- 测试环境   
+├── .editorconfig -- ESLint配置   
+├── .gitignore -- git忽略      
+├── .postcssrc.js -- CSS预处理配置(rem适配)    
+├── babel.config.js -- barbel配置入口    
+├── jsconfig.json -- vscode路径引入配置 
+├── package.json -- 依赖管理    
+└── vue.config.js -- vue cli3的webpack配置   
+
 ### 启动项目
 
 ```bash
@@ -29,7 +73,6 @@ npm install
 
 npm run serve
 ```
-
 <span id="top">目录</span>
 
 - √ Vue-cli4
@@ -49,19 +92,27 @@ npm run serve
 - [√ splitChunks 单独打包第三方模块](#chunks)
 - [√ 添加 IE 兼容 ](#ie)
 - [√ Eslint+Pettier 统一开发规范 ](#pettier)
+- [√ vconsole  ](#vconsole)
+- [√ 动态设置title ](#dyntitle)
+- [√ 配置Jssdk ](#jssdk)
+- [√ 本地存储storage封装 ](#storage)
 
 ### <span id="env">✅ 配置多环境变量 </span>
 
 `package.json` 里的 `scripts` 配置 `serve` `stage` `build`，通过 `--mode xxx` 来执行不同环境
 
 - 通过 `npm run serve` 启动本地 , 执行 `development`
-- 通过 `npm run stage` 打包测试 , 执行 `staging`
+- 通过 `npm run stage` 启动测试 , 执行 `development`
+- 通过 `npm run prod` 启动开发 , 执行 `development`
+- 通过 `npm run stageBuild` 打包测试 , 执行 `staging`
 - 通过 `npm run build` 打包正式 , 执行 `production`
 
 ```javascript
 "scripts": {
   "serve": "vue-cli-service serve --open",
-  "stage": "vue-cli-service build --mode staging",
+  "stage": "cross-env NODE_ENV=dev vue-cli-service serve --mode staging",
+  "prod": "cross-env NODE_ENV=dev vue-cli-service serve --mode production",
+  "stageBuild": "vue-cli-service build --mode staging",
   "build": "vue-cli-service build",
 }
 ```
@@ -411,7 +462,7 @@ new Vue({
     methods: {
       // Action 通过 store.dispatch 方法触发
       doDispatch() {
-        this.$store.dispatch('setUserName', '真乖，赶紧关注公众号，组织都在等你~')
+        this.$store.dispatch('setUserName', '值')
       }
     }
   }
@@ -951,25 +1002,88 @@ Vscode setting.json 设置
 
 [▲ 回顶部](#top)
 
+### <span id="vconsole">✅ vconsole 移动端调试 </span>
+参考地址：https://github.com/AlloyTeam/AlloyLever
+参考地址：https://www.cnblogs.com/liyinSakura/p/9883777.html
+```js
+import Vconsole from 'vconsole'
+const vConsole = new Vconsole()
+export default vConsole
+```
+* app.vue中设置暗门，点击几次显示vconsole
+  * 在app.vue中通过limit进行设置
+  * 开发测试环境点击一次就可显示
+  * 生产环境点击10次
+<p>
+  <img src="./static/image/secret.png" width="256" style="display:inline;">
+</p>
+
+[▲ 回顶部](#top)
+
+### <span id="dyntitle">✅ 动态设置title </span>
+参考地址：https://github.com/deboyblog/vue-wechat-title
+参考地址：https://www.cnblogs.com/guiyishanren/p/10666127.html
+```js
+// main.js
+// 引入插件 
+Vue.use(require('vue-wechat-title'))
+```
+使用
+```js
+// app.vue
+<router-view v-wechat-title="$route.meta.title" />
+```
+
+[▲ 回顶部](#top)
+
+### <span id="jssdk">✅ 配置Jssdk </span>
+安装：
+```js
+yarn add weixin-js-sdk
+```
+引用：
+```js
+// util
+wechatPlugin.js // jssdk插件配置
+jsApiList.js // 微信JS接口列表
+// main.js
+// 全局注册微信js-sdk
+import WechatPlugin from '@/utils/wechatPlugin'
+Vue.use(WechatPlugin)
+```
+调用：
+```js
+created() {
+  console.log(this.$wx)
+},
+```
+[▲ 回顶部](#top)
+
+### <span id="jssdk">✅ 本地存储storage封装 </span>
+安装：
+```js
+storage.js
+```
+引用：
+```js
+// 引入本地存储
+import { storage, sessionStorage } from '@/utils/storage'
+Vue.prototype.$storage = storage
+Vue.prototype.$sessionStorage = sessionStorage
+```
+调用：
+```js
+created() {
+  this.$storage.set('key','value')
+  this.$storage.get('key')
+  this.$sessionStorage.set('key','value')
+  this.$sessionStorage.get('key')
+},
+```
+[▲ 回顶部](#top)
+
 # 鸣谢 ​
 
 [vue-cli4-config](https://github.com/staven630/vue-cli4-config)
 [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
 
-# 关于我
-
-获取更多技术相关文章，关注公众号”前端女塾“。
-
-回复加群，即可加入”前端仙女群“
-
- <p>
-  <img src="./static/gognzhonghao.jpg" width="256" style="display:inline;">
-</p>
-
-扫描添加下方的微信并备注 Sol 加交流群，交流学习，及时获取代码最新动态。
-
-<p>
-  <img src="./static/me.png" width="256" style="display:inline;">
-</p>
- 
-如果对你有帮助送我一颗小星星（づ￣3￣）づ╭❤～

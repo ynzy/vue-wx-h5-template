@@ -18,10 +18,23 @@ import '@/plugins/vant'
 import '@/assets/css/index.scss'
 // 移动端适配
 import 'lib-flexible/flexible.js'
-
+// 引入移动端调试
+import '@/utils/vconsole.js'
 // filters
 import './filters'
+// 全局注册微信js-sdk
+import WechatPlugin from '@/utils/wechatPlugin'
+Vue.use(WechatPlugin)
+// 引入本地存储
+import { storage, sessionStorage } from '@/utils/storage'
+Vue.prototype.$storage = storage
+Vue.prototype.$sessionStorage = sessionStorage
+// 动态设置title
+Vue.use(require('vue-wechat-title'))
+
 Vue.config.productionTip = false
+
+
 
 new Vue({
   el: '#app',
