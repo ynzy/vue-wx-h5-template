@@ -32,7 +32,11 @@ export default {
         '去掉 console.log',
         'splitChunks 单独打包第三方模块',
         '添加 IE 兼容',
-        'Eslint+Pettier 统一开发规范'
+        'Eslint+Pettier 统一开发规范',
+        'vconsole',
+        '动态设置title',
+        '配置Jssdk',
+        '本地存储storage封装'
       ]
     }
   },

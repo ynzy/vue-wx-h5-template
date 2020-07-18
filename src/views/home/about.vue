@@ -5,25 +5,6 @@
       <div class="list">
         <div class="logo"></div>
         <div class="demo-home__title">VUE H5开发模板</div>
-        <div class="item">
-          项目地址:
-          <a href="https://github.com/sunniejs/vue-h5-template">https://github.com/sunniejs/vue-h5-template</a>
-        </div>
-        <div class="item">项目作者: sunnie</div>
-        <div class="item"></div>
-        <div class="wechat">
-          <img :src="this.wechat" alt="" />
-        </div>
-        <div class="item">关注公众号：回复“加群”即可加 前端仙女群</div>
-        <div class="item">
-          {{ userName }}
-          <van-button v-if="userName == ''" type="warning" size="small" @click="doDispatch">快点我~</van-button>
-        </div>
-      </div>
-      <div class="box">
-        <div class="item">1</div>
-        <div class="item">2</div>
-        <div class="item">3</div>
       </div>
     </div>
   </div>
@@ -56,10 +37,7 @@ export default {
     },
     // Action 通过 store.dispatch 方法触发
     doDispatch() {
-      this.$store.dispatch('setUserName', '真乖，赶紧关注公众号，组织都在等你~')
-    },
-    goGithub(index) {
-      window.location.href = 'https://github.com/sunniejs/vue-h5-template'
+      this.$store.dispatch('setUserName', '12313')
     }
   }
 }
@@ -114,12 +92,6 @@ export default {
         }
       }
     }
-  }
-}
-.box {
-  .item {
-    height: 40px;
-    border: 1px solid #000;
   }
 }
 </style>
